@@ -29,17 +29,29 @@ public class HashTable<T extends Hashable> {
         return added;
     }
 
-    public boolean delete(T item) {
-        String key = item.GetKey();
+    public Node<T> SearchByKey(String key) {
         int index = hashFunction(key);
-        boolean deleted = table[index].DeleteNode(item);
-        return deleted;
+        SingleLinkedList<T> bucket = table[index];
+        Node<T> current = bucket.head;
+        while (current != null) {
+            if (current.data.GetKey().equals(key)) {
+                return current;
+            }
+            current = current.next;
+        }
+        return null;
     }
 
-    public Node<T> search(T item) {
-        String key = item.GetKey();
+    public boolean DeleteByKey(String key) {
         int index = hashFunction(key);
-        return table[index].Search(item);
+        SingleLinkedList<T> bucket = table[index];
+        Node<T> current = bucket.head;
+        while (current != null) {
+            if (current.data.GetKey().equals(key)) {
+                return bucket.DeleteNode(current.data);
+            }
+            current = current.next;
+        }
+        return false;
     }
-
 }
