@@ -1,8 +1,8 @@
 package universty.Structures;
 
 public class SingleLinkedList<T> {
-    Node<T> head;
-    Node<T> tail;
+    public Node<T> head;
+    public Node<T> tail;
     int noOfNodes;
 
     public SingleLinkedList() {
