@@ -9,15 +9,16 @@ public class Courses implements Hashable {
     String courseId;
     Department department;
     int creditHours;
-    String instructorName;
+    Instructor instructor;
     SingleLinkedList<Student> enrolledStudents;
 
-    public Courses(String courseName, String courseId, Department department, int creditHours, String instructorName) {
+    public Courses(String courseName, String courseId, Department department, int creditHours,
+            Instructor instructor) {
         this.courseName = courseName;
         this.courseId = courseId;
         this.department = department;
         this.creditHours = creditHours;
-        this.instructorName = instructorName;
+        this.instructor = instructor;
         this.enrolledStudents = new SingleLinkedList<Student>();
     }
 
@@ -66,12 +67,12 @@ public class Courses implements Hashable {
         this.creditHours = creditHours;
     }
 
-    public String getInstructorName() {
-        return instructorName;
+    public Instructor getInstructor() {
+        return instructor;
     }
 
-    public void setInstructorName(String instructorName) {
-        this.instructorName = instructorName;
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
     @Override
@@ -80,4 +81,13 @@ public class Courses implements Hashable {
         return courseId;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Courses))
+            return false;
+        Courses c = (Courses) obj;
+        return this.getCourseId().equals(c.getCourseId());
+    }
 }

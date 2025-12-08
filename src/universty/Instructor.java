@@ -27,4 +27,14 @@ public class Instructor extends Person {
     public void setSalary(Double salary) {
         this.salary = salary;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Instructor))
+            return false;
+        Instructor i = (Instructor) obj;
+        return this.getId().equals(i.getId());
+    }
 }

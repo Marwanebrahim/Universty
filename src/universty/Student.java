@@ -14,18 +14,22 @@ public class Student extends Person {
         totalFees = 0.0;
     }
 
-    public boolean registerCourse(Courses course) {
+    public boolean addCourse(Courses course) {
         boolean registered = false;
-        if (enrolledCourses.AddNode(course)) {
-            registeredHours += course.getCreditHours();
-            totalFees += department.getCourseFees() * course.getCreditHours();
-            registered = true;
+
+        if (registeredHours + course.getCreditHours() <= 17) {
+            if (enrolledCourses.AddNode(course)) {
+                registeredHours += course.getCreditHours();
+                totalFees += department.getCourseFees() * course.getCreditHours();
+                registered = true;
+            }
         }
         return registered;
     }
 
     public boolean dropCourse(Courses course) {
         boolean dropped = false;
+
         if (enrolledCourses.DeleteNode(course)) {
             registeredHours -= course.getCreditHours();
             totalFees -= department.getCourseFees() * course.getCreditHours();
@@ -46,4 +50,13 @@ public class Student extends Person {
         return totalFees;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof Student))
+            return false;
+        Student s = (Student) obj;
+        return this.getId().equals(s.getId());
+    }
 }
