@@ -1,5 +1,5 @@
 package universty.interfaces;
 
 public interface Hashable {
-    String GetKey();
+    String getKey();
 }

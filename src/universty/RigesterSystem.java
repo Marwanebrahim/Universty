@@ -18,7 +18,7 @@ public class RigesterSystem {
 
     public boolean removeDepartment(String departmentName) {
         Node<Department> temp = departments.head;
-        while (temp!=null && !temp.data.GetKey().equals(departmentName)) {
+        while (temp != null && !temp.data.getKey().equals(departmentName)) {
             temp = temp.next;
             if (temp == null) {
                 return false;
@@ -30,7 +30,7 @@ public class RigesterSystem {
     public Department searchDepartment(String departmentName) {
         Node<Department> temp = departments.head;
         while (temp != null) {
-            if (temp.data.GetKey().equals(departmentName)) {
+            if (temp.data.getKey().equals(departmentName)) {
                 return temp.data;
             }
             temp = temp.next;
@@ -79,7 +79,7 @@ public class RigesterSystem {
         while (tempDept != null) {
             Student student = tempDept.data.searchStudent(studentID);
             if (student != null) {
-                return student.dropCourse(course);
+                return student.removeCourse(course);
             }
             tempDept = tempDept.next;
         }
@@ -115,7 +115,7 @@ public class RigesterSystem {
         while (tempDept != null) {
             Instructor instructor = tempDept.data.searchInstructor(instructorID);
             if (instructor != null) {
-                return instructor.assignCourse(course);
+                return instructor.addCourse(course);
             }
             tempDept = tempDept.next;
         }

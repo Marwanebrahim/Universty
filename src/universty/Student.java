@@ -27,7 +27,7 @@ public class Student extends Person {
         return registered;
     }
 
-    public boolean dropCourse(Courses course) {
+    public boolean removeCourse(Courses course) {
         boolean dropped = false;
 
         if (enrolledCourses.DeleteNode(course)) {

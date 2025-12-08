@@ -12,7 +12,7 @@ public class Instructor extends Person {
         this.salary = salary;
     }
 
-    public boolean assignCourse(Courses course) {
+    public boolean addCourse(Courses course) {
         return teachingCourses.AddNode(course);
     }
 

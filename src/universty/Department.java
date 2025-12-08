@@ -31,15 +31,15 @@ public class Department implements Hashable {
     }
 
     public boolean removeInstructor(String key) {
-        Node<Instructor> instructor = instructors.SearchByKey(key);
+        Node<Instructor> instructor = instructors.searchByKey(key);
         if (instructor != null) {
             totalSalaries -= instructor.data.getSalary();
         }
-        return instructors.DeleteByKey(key);
+        return instructors.deleteByKey(key);
     }
 
     public Instructor searchInstructor(String key) {
-        Node<Instructor> instructor = instructors.SearchByKey(key);
+        Node<Instructor> instructor = instructors.searchByKey(key);
         if (instructor != null) {
             return instructor.data;
         }
@@ -50,9 +50,9 @@ public class Department implements Hashable {
         totalFees += student.getTotalFees();
         Node<Courses> enrolledcourses = student.enrolledCourses.head;
         while (enrolledcourses != null) {
-            Node<Courses> course = courses.SearchByKey(enrolledcourses.data.GetKey());
+            Node<Courses> course = courses.searchByKey(enrolledcourses.data.getKey());
             if (course != null) {
-                course.data.enrollStudent(student);
+                course.data.addStudent(student);
             }
             enrolledcourses = enrolledcourses.next;
         }
@@ -60,23 +60,23 @@ public class Department implements Hashable {
     }
 
     public boolean removeStudent(String key) {
-        Node<Student> student = students.SearchByKey(key);
+        Node<Student> student = students.searchByKey(key);
         if (student != null) {
             totalFees -= student.data.getTotalFees();
             Node<Courses> enrolledcourses = student.data.enrolledCourses.head;
             while (enrolledcourses != null && enrolledcourses.data != null) {
-                Node<Courses> course = courses.SearchByKey(enrolledcourses.data.GetKey());
+                Node<Courses> course = courses.searchByKey(enrolledcourses.data.getKey());
                 if (course != null) {
                     course.data.removeStudent(student.data);
                 }
                 enrolledcourses = enrolledcourses.next;
             }
         }
-        return students.DeleteByKey(key);
+        return students.deleteByKey(key);
     }
 
     public Student searchStudent(String key) {
-        Node<Student> student = students.SearchByKey(key);
+        Node<Student> student = students.searchByKey(key);
         if (student != null) {
             return student.data;
         }
@@ -89,20 +89,20 @@ public class Department implements Hashable {
     }
 
     public boolean removeCourse(String key) {
-        Node<Courses> course = courses.SearchByKey(key);
+        Node<Courses> course = courses.searchByKey(key);
         if (course != null) {
             Node<Student> enrolledStudents = course.data.enrolledStudents.head;
             while (enrolledStudents != null) {
-                enrolledStudents.data.dropCourse(course.data);
+                enrolledStudents.data.removeCourse(course.data);
                 enrolledStudents = enrolledStudents.next;
             }
 
         }
-        return courses.DeleteByKey(key);
+        return courses.deleteByKey(key);
     }
 
     public Courses searchCourse(String key) {
-        Node<Courses> course = courses.SearchByKey(key);
+        Node<Courses> course = courses.searchByKey(key);
         if (course != null) {
             return course.data;
         }
@@ -131,7 +131,7 @@ public class Department implements Hashable {
     }
 
     @Override
-    public String GetKey() {
+    public String getKey() {
         return departmentName;
     }
 

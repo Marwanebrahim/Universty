@@ -22,7 +22,7 @@ public class Courses implements Hashable {
         this.enrolledStudents = new SingleLinkedList<Student>();
     }
 
-    public boolean enrollStudent(Student student) {
+    public boolean addStudent(Student student) {
         return enrolledStudents.AddNode(student);
     }
 
@@ -76,7 +76,7 @@ public class Courses implements Hashable {
     }
 
     @Override
-    public String GetKey() {
+    public String getKey() {
 
         return courseId;
     }

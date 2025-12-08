@@ -23,18 +23,18 @@ public class HashTable<T extends Hashable> {
     }
 
     public boolean insert(T item) {
-        String key = item.GetKey();
+        String key = item.getKey();
         int index = hashFunction(key);
         boolean added = table[index].AddNode(item);
         return added;
     }
 
-    public Node<T> SearchByKey(String key) {
+    public Node<T> searchByKey(String key) {
         int index = hashFunction(key);
         SingleLinkedList<T> bucket = table[index];
         Node<T> current = bucket.head;
         while (current != null) {
-            if (current.data.GetKey().equals(key)) {
+            if (current.data.getKey().equals(key)) {
                 return current;
             }
             current = current.next;
@@ -42,12 +42,12 @@ public class HashTable<T extends Hashable> {
         return null;
     }
 
-    public boolean DeleteByKey(String key) {
+    public boolean deleteByKey(String key) {
         int index = hashFunction(key);
         SingleLinkedList<T> bucket = table[index];
         Node<T> current = bucket.head;
         while (current != null) {
-            if (current.data.GetKey().equals(key)) {
+            if (current.data.getKey().equals(key)) {
                 return bucket.DeleteNode(current.data);
             }
             current = current.next;

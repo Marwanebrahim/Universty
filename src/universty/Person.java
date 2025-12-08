@@ -14,7 +14,7 @@ public abstract class Person implements Hashable {
     }
 
     @Override
-    public String GetKey() {
+    public String getKey() {
         return id;
 
     }
