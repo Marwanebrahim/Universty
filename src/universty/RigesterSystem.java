@@ -1,5 +1,7 @@
 package universty;
 
+import java.util.Scanner;
+
 import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
 
@@ -13,6 +15,10 @@ public class RigesterSystem {
     }
 
     public boolean addDepartment(Department department) {
+        boolean found = searchDepartment(department.getDepartmentName()) != null;
+        if (found) {
+            return false;
+        }
         return departments.AddNode(department);
     }
 
@@ -20,11 +26,11 @@ public class RigesterSystem {
         Node<Department> temp = departments.head;
         while (temp != null && !temp.data.getKey().equals(departmentName)) {
             temp = temp.next;
-            if (temp == null) {
-                return false;
-            }
         }
-        return departments.DeleteNode(temp.data);
+        if (temp != null) {
+            return departments.DeleteNode(temp.data);
+        }
+        return false;
     }
 
     public Department searchDepartment(String departmentName) {
@@ -62,19 +68,15 @@ public class RigesterSystem {
         return null;
     }
 
-    public boolean addCourseToStudent(String studentID, Courses course) {
-        Node<Department> tempDept = departments.head;
-        while (tempDept != null) {
-            Student student = tempDept.data.searchStudent(studentID);
-            if (student != null) {
-                return student.addCourse(course);
-            }
-            tempDept = tempDept.next;
+    public int addCourseToStudent(Department department, Student student, Courses course) {
+
+        if (student != null) {
+            return student.addCourse(course);
         }
-        return false;
+        return 100;
     }
 
-    public boolean removeCourseFromStudent(String studentID, Courses course) {
+    public int removeCourseFromStudent(String studentID, Courses course) {
         Node<Department> tempDept = departments.head;
         while (tempDept != null) {
             Student student = tempDept.data.searchStudent(studentID);
@@ -83,7 +85,7 @@ public class RigesterSystem {
             }
             tempDept = tempDept.next;
         }
-        return false;
+        return 100;
     }
 
     public boolean addInstructorToDepartment(String departmentName, Instructor instructor) {
@@ -115,6 +117,7 @@ public class RigesterSystem {
         while (tempDept != null) {
             Instructor instructor = tempDept.data.searchInstructor(instructorID);
             if (instructor != null) {
+                course.setInstructor(instructor);
                 return instructor.addCourse(course);
             }
             tempDept = tempDept.next;
@@ -158,12 +161,36 @@ public class RigesterSystem {
         return null;
     }
 
-    public void printDepartments() {
+    public int printDepartments() {
         Node<Department> temp = departments.head;
+        if (temp == null) {
+            System.out.println("No departments available.");
+        }
         while (temp != null) {
             System.out.println("Department Name: " + temp.data.getDepartmentName());
             temp = temp.next;
         }
+        return 0;
+    }
+
+    public int printCoursesInDepartment(String departmentName) {
+        Department dept = searchDepartment(departmentName);
+        if (dept != null) {
+            dept.printCourses();
+            return 0;
+        }
+        System.out.println("Department not found.");
+        return -1;
+    }
+
+    public int listStudentsInCourse(Department department, String courseID) {
+        Courses course = department.searchCourse(courseID);
+        if (course != null) {
+            course.printEnrolledStudents();
+            return 0;
+        }
+        System.out.println("Course not found.");
+        return -1;
     }
 
     public double getTotalBalance() {
@@ -174,5 +201,39 @@ public class RigesterSystem {
             temp = temp.next;
         }
         return totalBalance;
+    }
+
+    public double getTotalSalaries() {
+        double totalSalaries = 0;
+        Node<Department> temp = departments.head;
+        while (temp != null) {
+            totalSalaries += temp.data.getTotalSalaries();
+            temp = temp.next;
+        }
+        return totalSalaries;
+    }
+
+    public double getTotalFees() {
+        double totalFees = 0;
+        Node<Department> temp = departments.head;
+        while (temp != null) {
+            totalFees += temp.data.getTotalFees();
+            temp = temp.next;
+        }
+        return totalFees;
+    }
+
+    public Department isDepartmentFound(Scanner input) {
+        System.out.println("Enter Department Name: ");
+        int n = printDepartments();
+        if (n != 0) {
+            System.out.println("No departments available. Please add a department first.");
+            return null;
+        }
+
+        String deptName = input.nextLine();
+
+        Department dept = searchDepartment(deptName);
+        return dept;
     }
 }

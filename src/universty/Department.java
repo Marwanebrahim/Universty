@@ -9,6 +9,7 @@ public class Department implements Hashable {
     double courseFees;
     double totalSalaries;
     double totalFees;
+
     double balance;
     HashTable<Instructor> instructors;
     HashTable<Student> students;
@@ -26,6 +27,10 @@ public class Department implements Hashable {
     }
 
     public boolean addInstructor(Instructor instructor) {
+        boolean found = searchInstructor(instructor.getId()) != null;
+        if (found) {
+            return false;
+        }
         totalSalaries += instructor.getSalary();
         return instructors.insert(instructor);
     }
@@ -40,21 +45,14 @@ public class Department implements Hashable {
 
     public Instructor searchInstructor(String key) {
         Node<Instructor> instructor = instructors.searchByKey(key);
-        if (instructor != null) {
-            return instructor.data;
-        }
-        return null;
+
+        return instructor.data;
     }
 
     public boolean addStudent(Student student) {
-        totalFees += student.getTotalFees();
-        Node<Courses> enrolledcourses = student.enrolledCourses.head;
-        while (enrolledcourses != null) {
-            Node<Courses> course = courses.searchByKey(enrolledcourses.data.getKey());
-            if (course != null) {
-                course.data.addStudent(student);
-            }
-            enrolledcourses = enrolledcourses.next;
+        boolean found = searchStudent(student.getId()) != null;
+        if (found) {
+            return false;
         }
         return students.insert(student);
     }
@@ -84,7 +82,10 @@ public class Department implements Hashable {
     }
 
     public boolean addCourse(Courses course) {
-
+        boolean found = searchCourse(course.getKey()) != null;
+        if (found) {
+            return false;
+        }
         return courses.insert(course);
     }
 
@@ -94,6 +95,7 @@ public class Department implements Hashable {
             Node<Student> enrolledStudents = course.data.enrolledStudents.head;
             while (enrolledStudents != null) {
                 enrolledStudents.data.removeCourse(course.data);
+                course.data.removeStudent(enrolledStudents.data);
                 enrolledStudents = enrolledStudents.next;
             }
 
@@ -128,6 +130,26 @@ public class Department implements Hashable {
     public double getBalance() {
         balance = totalFees - totalSalaries;
         return balance;
+    }
+
+    public void printCourses() {
+        courses.printHashTable();
+    }
+
+    public void printStudents() {
+        students.printHashTable();
+    }
+
+    public void printInstructors() {
+        instructors.printHashTable();
+    }
+
+    public double getTotalSalaries() {
+        return totalSalaries;
+    }
+
+    public double getTotalFees() {
+        return totalFees;
     }
 
     @Override

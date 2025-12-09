@@ -54,4 +54,18 @@ public class HashTable<T extends Hashable> {
         }
         return false;
     }
+
+    public void printHashTable() {
+        for (int i = 0; i < size; i++) {
+            SingleLinkedList<T> bucket = table[i];
+            if (bucket.head != null) {
+                Node<T> current = bucket.head;
+                while (current != null) {
+                    Node<T> temp = searchByKey(current.data.getKey());
+                    System.out.println(temp.data);
+                    current = current.next;
+                }
+            }
+        }
+    }
 }

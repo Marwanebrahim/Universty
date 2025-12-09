@@ -14,28 +14,26 @@ public class Student extends Person {
         totalFees = 0.0;
     }
 
-    public boolean addCourse(Courses course) {
-        boolean registered = false;
+    public int addCourse(Courses course) {
 
         if (registeredHours + course.getCreditHours() <= 17) {
             if (enrolledCourses.AddNode(course)) {
                 registeredHours += course.getCreditHours();
                 totalFees += department.getCourseFees() * course.getCreditHours();
-                registered = true;
+                course.addStudent(this);
             }
         }
-        return registered;
+        return registeredHours;
     }
 
-    public boolean removeCourse(Courses course) {
-        boolean dropped = false;
+    public int removeCourse(Courses course) {
 
         if (enrolledCourses.DeleteNode(course)) {
             registeredHours -= course.getCreditHours();
             totalFees -= department.getCourseFees() * course.getCreditHours();
-            dropped = true;
+            course.removeStudent(this);
         }
-        return dropped;
+        return registeredHours;
     }
 
     public int getRegisteredHours() {
@@ -50,6 +48,10 @@ public class Student extends Person {
         return totalFees;
     }
 
+    public String getStudentId() {
+        return this.getId();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -59,4 +61,12 @@ public class Student extends Person {
         Student s = (Student) obj;
         return this.getId().equals(s.getId());
     }
+
+    @Override
+    public String toString() {
+        return "Student ID: " + this.getId() + ", Name: " + this.getName() + ", Department: "
+                + this.department.getDepartmentName() + ", Registered Hours: " + this.registeredHours
+                + ", Total Fees: " + this.totalFees;
+    }
+
 }

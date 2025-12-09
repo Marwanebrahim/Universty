@@ -12,8 +12,7 @@ public class Courses implements Hashable {
     Instructor instructor;
     SingleLinkedList<Student> enrolledStudents;
 
-    public Courses(String courseName, String courseId, Department department, int creditHours,
-            Instructor instructor) {
+    public Courses(String courseName, String courseId, Department department, int creditHours, Instructor instructor) {
         this.courseName = courseName;
         this.courseId = courseId;
         this.department = department;
@@ -33,6 +32,17 @@ public class Courses implements Hashable {
     public boolean isStudentEnrolled(Student student) {
         Node<Student> node = enrolledStudents.Search(student);
         return node != null;
+    }
+
+    public void printEnrolledStudents() {
+        Node<Student> temp = enrolledStudents.head;
+        if (temp == null) {
+            System.out.println("No students enrolled in this course.");
+        }
+        while (temp != null) {
+            System.out.println(temp.data);
+            temp = temp.next;
+        }
     }
 
     public String getCourseName() {
@@ -79,6 +89,13 @@ public class Courses implements Hashable {
     public String getKey() {
 
         return courseId;
+    }
+
+    @Override
+    public String toString() {
+        return "Course Name: " + courseName + ", Course ID: " + courseId + ", Department: "
+                + department.getDepartmentName() + ", Credit Hours: " + creditHours + ", Instructor: "
+                + instructor.getName();
     }
 
     @Override

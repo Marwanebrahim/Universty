@@ -1,5 +1,6 @@
 package universty;
 
+import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
 
 public class Instructor extends Person {
@@ -13,6 +14,10 @@ public class Instructor extends Person {
     }
 
     public boolean addCourse(Courses course) {
+        Node<Courses> node = teachingCourses.Search(course);
+        if (node != null) {
+            return false;
+        }
         return teachingCourses.AddNode(course);
     }
 
@@ -36,5 +41,11 @@ public class Instructor extends Person {
             return false;
         Instructor i = (Instructor) obj;
         return this.getId().equals(i.getId());
+    }
+
+    @Override
+    public String toString() {
+        return "Instructor Name: " + getName() + ", ID: " + getId() + ", Department: "
+                + getDepartment().getDepartmentName() + ", Salary: " + salary;
     }
 }
