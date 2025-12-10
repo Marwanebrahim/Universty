@@ -236,4 +236,5 @@ public class RigesterSystem {
         Department dept = searchDepartment(deptName);
         return dept;
     }
+
 }
