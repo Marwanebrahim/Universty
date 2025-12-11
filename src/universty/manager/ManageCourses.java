@@ -46,7 +46,7 @@ public class ManageCourses {
                         break;
                     }
                     Courses newCourse = new Courses(courseName, courseID, deptToAddCourse, courseCredits, instructor);
-                    boolean added = deptToAddCourse.addCourse(newCourse);
+                    boolean added = rigesterSystem.addCourseToDepartment(deptToAddCourse.getDepartmentName(), newCourse);
                     System.out.println(added ? "Course added successfully." : "Course already exists.");
                     break;
                 case "2":

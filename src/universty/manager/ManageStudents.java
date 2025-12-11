@@ -30,7 +30,7 @@ public class ManageStudents {
                         System.out.println("Enter Student ID: ");
                         String studentID = input.nextLine();
                         Student newStudent = new Student(studentName, studentID, dept);
-                        boolean added = dept.addStudent(newStudent);
+                        boolean added = rigesterSystem.addStudentToDepartment(dept.getKey(), newStudent);
                         System.out.println(
                                 added ? "Student added successfully to " + dept.getDepartmentName() + " department."
                                         : "Failed to add student to " + dept.getDepartmentName() + " department.");
@@ -44,7 +44,8 @@ public class ManageStudents {
                     if (deptToRemove != null) {
                         System.out.println("Enter Student ID to remove: ");
                         String studentIDToRemove = input.nextLine();
-                        boolean removed = deptToRemove.removeStudent(studentIDToRemove);
+                        boolean removed = rigesterSystem.removeStudentFromDepartment(deptToRemove.getKey(),
+                                studentIDToRemove);
                         System.out.println(removed ? "Student removed successfully." : "Student not found.");
                     } else {
                         System.out.println("Department not found.");
@@ -77,7 +78,8 @@ public class ManageStudents {
                     }
                     System.out.println("Enter Student ID: ");
                     String studentId = input.nextLine();
-                    Student student = deptForCourse.searchStudent(studentId);
+                    Student student = rigesterSystem.searchStudentInDepartment(deptForCourse.getDepartmentName(),
+                            studentId);
                     if (student == null) {
                         System.out.println("Student not found.");
                         break;
@@ -91,12 +93,17 @@ public class ManageStudents {
 
                         System.out.println("Enter Course ID to add: ");
                         String courseIDToAdd = input.nextLine();
-                        Courses courseToAdd = deptForCourse.searchCourse(courseIDToAdd);
+                        Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptForCourse.getDepartmentName(),
+                                courseIDToAdd);
                         if (courseToAdd == null) {
                             System.out.println("Course not found in the department.");
                             break;
                         }
-                        int regidteredHours = student.addCourse(courseToAdd);
+                        if (student.getRegisteredHours() + courseToAdd.getCreditHours() >= 17) {
+                            System.out.println("Maximum registered hours reached. Cannot add more courses.");
+                            break;
+                        }
+                        int regidteredHours = rigesterSystem.addCourseToStudent(deptForCourse, student, courseToAdd);
                         System.out.println("Course added successfully. Total registered hours: " + regidteredHours);
                         if (regidteredHours == 100) {
                             System.out.println("Failed to add course. try again.");
@@ -122,7 +129,8 @@ public class ManageStudents {
                     }
                     System.out.println("Enter Student ID: ");
                     String studentId = input.nextLine();
-                    Student student = deptForCourse.searchStudent(studentId);
+                    Student student = rigesterSystem.searchStudentInDepartment(deptForCourse.getDepartmentName(),
+                            studentId);
                     if (student == null) {
                         System.out.println("Student not found.");
                         break;
@@ -135,12 +143,14 @@ public class ManageStudents {
                     while (true) {
                         System.out.println("Enter Course ID to remove: ");
                         String courseIDToRemove = input.next();
-                        Courses courseToRemove = deptForCourse.searchCourse(courseIDToRemove);
+                        Courses courseToRemove = rigesterSystem
+                                .searchCourseInDepartment(deptForCourse.getDepartmentName(), courseIDToRemove);
                         if (courseToRemove == null) {
                             System.out.println("Course not found in the department.");
                             break;
                         }
-                        int registeredHoursAfterRemove = student.removeCourse(courseToRemove);
+                        int registeredHoursAfterRemove = rigesterSystem.removeCourseFromStudent(student.getId(),
+                                courseToRemove);
                         if (registeredHoursAfterRemove == 100) {
                             System.out.println("Failed to remove course. try again.");
                             continue;

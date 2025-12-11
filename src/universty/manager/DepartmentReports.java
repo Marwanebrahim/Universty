@@ -7,7 +7,7 @@ import universty.RigesterSystem;
 
 public class DepartmentReports {
 
-   public void departmentReports(RigesterSystem rigesterSystem, Scanner input) {
+    public void departmentReports(RigesterSystem rigesterSystem, Scanner input) {
         while (true) {
             System.out.println("------ Department Reports Menu ------");
             System.out.println("1. Show Department Balance");
@@ -22,14 +22,14 @@ public class DepartmentReports {
                 case "1":
                     Department dept = rigesterSystem.isDepartmentFound(input);
                     if (dept != null) {
-                        double balance = dept.getBalance();
+                        double balance = rigesterSystem.getBalance(dept);
                         System.out.println("Department Balance for " + dept.getDepartmentName() + ": " + balance);
                     }
                     break;
                 case "2":
                     Department deptFees = rigesterSystem.isDepartmentFound(input);
                     if (deptFees != null) {
-                        double totalFees = deptFees.getTotalFees();
+                        double totalFees = rigesterSystem.getTotalFees();
                         System.out
                                 .println("Total Fees Collected for " + deptFees.getDepartmentName() + ": " + totalFees);
                     }
@@ -37,7 +37,7 @@ public class DepartmentReports {
                 case "3":
                     Department deptSalaries = rigesterSystem.isDepartmentFound(input);
                     if (deptSalaries != null) {
-                        double totalSalaries = deptSalaries.getTotalSalaries();
+                        double totalSalaries = rigesterSystem.getTotalSalaries();
                         System.out.println(
                                 "Total Salaries Paid for " + deptSalaries.getDepartmentName() + ": " + totalSalaries);
                     }

@@ -84,12 +84,12 @@ public class ManageInstructors {
                     }
                     System.out.println("Enter Course ID to add to Instructor: ");
                     String courseIDToAdd = input.nextLine();
-                    Courses courseToAdd = deptToAddCourse.searchCourse(courseIDToAdd);
+                    Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptToAddCourse.getDepartmentName(), courseIDToAdd);
                     if (courseToAdd == null) {
                         System.out.println("Course not found in the department.");
                         break;
                     }
-                    boolean courseAdded = instructorToAddCourse.addCourse(courseToAdd);
+                    boolean courseAdded = rigesterSystem.addCourseToInstructor(instructorToAddCourse.getId(), courseToAdd);
                     System.out.println(courseAdded ? "Course added to instructor successfully."
                             : "Course already assigned to instructor.");
                     break;
@@ -101,19 +101,22 @@ public class ManageInstructors {
                     }
                     System.out.println("Enter Instructor ID: ");
                     String instructorId = input.nextLine();
-                    Instructor instructor = deptToRemoveCourse.searchInstructor(instructorId);
+                    Instructor instructor = rigesterSystem
+                            .searchInstructorInDepartment(deptToRemoveCourse.getDepartmentName(), instructorId);
                     if (instructor == null) {
                         System.out.println("Instructor not found.");
                         break;
                     }
                     System.out.println("Enter Course ID to remove from Instructor: ");
                     String courseIDToRemove = input.nextLine();
-                    Courses courseToRemove = deptToRemoveCourse.searchCourse(courseIDToRemove);
+                    Courses courseToRemove = rigesterSystem
+                            .searchCourseInDepartment(deptToRemoveCourse.getDepartmentName(), courseIDToRemove);
                     if (courseToRemove == null) {
                         System.out.println("Course not found in the department.");
                         break;
                     }
-                    boolean courseRemoved = instructor.removeCourse(courseToRemove);
+                    boolean courseRemoved = rigesterSystem.removeCourseFromInstructor(instructor.getId(),
+                            courseToRemove);
                     System.out.println(courseRemoved ? "Course removed from instructor successfully."
                             : "Course not found in instructor assigned courses.");
                     break;
