@@ -27,8 +27,7 @@ public class Department implements Hashable {
     }
 
     public boolean addInstructor(Instructor instructor) {
-        boolean found = searchInstructor(instructor.getId()) != null;
-        if (found) {
+        if (instructor == null) {
             return false;
         }
         totalSalaries += instructor.getSalary();
@@ -46,7 +45,7 @@ public class Department implements Hashable {
     public Instructor searchInstructor(String key) {
         Node<Instructor> instructor = instructors.searchByKey(key);
 
-        return instructor.data;
+        return instructor != null ? instructor.data : null;
     }
 
     public boolean addStudent(Student student) {

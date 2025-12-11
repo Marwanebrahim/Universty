@@ -19,6 +19,7 @@ public class Universty {
         ManageCourses manageCourses = new ManageCourses();
         ManageInstructors manageInstructors = new ManageInstructors();
         DepartmentReports departmentReports = new DepartmentReports();
+        rigesterSystem.DumbyData();
         boolean first_choice = true;
         while (first_choice) {
 

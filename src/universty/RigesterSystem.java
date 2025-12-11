@@ -13,7 +13,7 @@ public class RigesterSystem {
         departments = new SingleLinkedList<Department>();
         totalBalance = 0;
     }
-
+// CRUD Department
     public boolean addDepartment(Department department) {
         boolean found = searchDepartment(department.getDepartmentName()) != null;
         if (found) {
@@ -43,7 +43,7 @@ public class RigesterSystem {
         }
         return null;
     }
-
+// CRUD Student
     public boolean addStudentToDepartment(String departmentName, Student student) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -87,7 +87,7 @@ public class RigesterSystem {
         }
         return 100;
     }
-
+// CRUD Instructor
     public boolean addInstructorToDepartment(String departmentName, Instructor instructor) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -136,7 +136,7 @@ public class RigesterSystem {
         }
         return false;
     }
-
+// CRUD Course
     public boolean addCourseToDepartment(String departmentName, Courses course) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -160,7 +160,7 @@ public class RigesterSystem {
         }
         return null;
     }
-
+// Reports and Listings
     public int printDepartments() {
         Node<Department> temp = departments.head;
         if (temp == null) {
@@ -193,6 +193,9 @@ public class RigesterSystem {
         return -1;
     }
 
+    public double getBalance(Department department) {
+        return department.getBalance();
+    }
     public double getTotalBalance() {
         totalBalance = 0;
         Node<Department> temp = departments.head;
@@ -224,17 +227,54 @@ public class RigesterSystem {
     }
 
     public Department isDepartmentFound(Scanner input) {
-        System.out.println("Enter Department Name: ");
         int n = printDepartments();
         if (n != 0) {
             System.out.println("No departments available. Please add a department first.");
             return null;
         }
+        System.out.println("Enter Department Name: ");
 
         String deptName = input.nextLine();
 
         Department dept = searchDepartment(deptName);
         return dept;
+    }
+
+    public void DumbyData() {
+        Department csDept = new Department("cs", 5000);
+        Department mathDept = new Department("math", 4000);
+        addDepartment(csDept);
+        addDepartment(mathDept);
+        Instructor alice = new Instructor("Alice", "I001", csDept, 600.0);
+        Instructor bob = new Instructor("Bob", "I002", mathDept, 550.0);
+        Instructor ma = new Instructor("ma", "12", mathDept, 550.0);
+        addInstructorToDepartment("cs", alice);
+        addInstructorToDepartment("math", bob);
+        addInstructorToDepartment("math", ma);
+
+        Student marwan = new Student("marwan", "m100", mathDept);
+        Student john = new Student("john", "s200", csDept);
+        Student doe = new Student("doe", "s300", csDept);
+        addStudentToDepartment("math", marwan);
+        addStudentToDepartment("cs", john);
+        addStudentToDepartment("cs", doe);
+
+        Courses ds = new Courses("Data Structures", "C101", csDept, 3, alice);
+        Courses calc = new Courses("Calculus", "M101", mathDept, 4, bob);
+        Courses la = new Courses("Linear Algebra", "M102", csDept, 3, ma);
+
+        addCourseToDepartment("cs", ds);
+        addCourseToDepartment("math", calc);
+        addCourseToDepartment("math", la);
+
+        addCourseToInstructor("I001", ds);
+        addCourseToInstructor("I002", calc);
+        addCourseToInstructor("12", la);
+
+        addCourseToStudent(mathDept, doe, la);
+        addCourseToStudent(csDept, john, ds);
+        addCourseToStudent(mathDept, marwan, calc);
+        addCourseToStudent(mathDept, marwan, calc);
     }
 
 }
