@@ -1,9 +1,13 @@
-package universty;
+package universty.system;
 
 import java.util.Scanner;
 
 import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
+import universty.model.Courses;
+import universty.model.Department;
+import universty.model.Instructor;
+import universty.model.Student;
 
 public class RigesterSystem {
     SingleLinkedList<Department> departments;
@@ -13,7 +17,8 @@ public class RigesterSystem {
         departments = new SingleLinkedList<Department>();
         totalBalance = 0;
     }
-// CRUD Department
+
+    // CRUD Department
     public boolean addDepartment(Department department) {
         boolean found = searchDepartment(department.getDepartmentName()) != null;
         if (found) {
@@ -43,7 +48,8 @@ public class RigesterSystem {
         }
         return null;
     }
-// CRUD Student
+
+    // CRUD Student
     public boolean addStudentToDepartment(String departmentName, Student student) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -87,7 +93,8 @@ public class RigesterSystem {
         }
         return 100;
     }
-// CRUD Instructor
+
+    // CRUD Instructor
     public boolean addInstructorToDepartment(String departmentName, Instructor instructor) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -136,7 +143,8 @@ public class RigesterSystem {
         }
         return false;
     }
-// CRUD Course
+
+    // CRUD Course
     public boolean addCourseToDepartment(String departmentName, Courses course) {
         Department dept = searchDepartment(departmentName);
         if (dept != null) {
@@ -160,7 +168,8 @@ public class RigesterSystem {
         }
         return null;
     }
-// Reports and Listings
+
+    // Reports and Listings
     public int printDepartments() {
         Node<Department> temp = departments.head;
         if (temp == null) {
@@ -196,6 +205,7 @@ public class RigesterSystem {
     public double getBalance(Department department) {
         return department.getBalance();
     }
+
     public double getTotalBalance() {
         totalBalance = 0;
         Node<Department> temp = departments.head;
@@ -271,10 +281,9 @@ public class RigesterSystem {
         addCourseToInstructor("I002", calc);
         addCourseToInstructor("12", la);
 
-        addCourseToStudent(mathDept, doe, la);
         addCourseToStudent(csDept, john, ds);
         addCourseToStudent(mathDept, marwan, calc);
-        addCourseToStudent(mathDept, marwan, calc);
+        addCourseToStudent(mathDept, marwan, la);
     }
 
 }

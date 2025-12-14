@@ -1,4 +1,4 @@
-package universty;
+package universty.model;
 
 import universty.Structures.SingleLinkedList;
 
@@ -15,12 +15,14 @@ public class Student extends Person {
     }
 
     public int addCourse(Courses course) {
-
-        if (registeredHours + course.getCreditHours() <= 17) {
-            if (enrolledCourses.AddNode(course)) {
-                registeredHours += course.getCreditHours();
-                totalFees += department.getCourseFees() * course.getCreditHours();
-                course.addStudent(this);
+        if (enrolledCourses.Search(course) != null) {
+            if (registeredHours + course.getCreditHours() <= 17) {
+                if (enrolledCourses.AddNode(course)) {
+                    registeredHours += course.getCreditHours();
+                    totalFees += department.getCourseFees() * course.getCreditHours();
+                    department.totalFees += department.getCourseFees() * course.getCreditHours();
+                    course.addStudent(this);
+                }
             }
         }
         return registeredHours;
@@ -31,6 +33,7 @@ public class Student extends Person {
         if (enrolledCourses.DeleteNode(course)) {
             registeredHours -= course.getCreditHours();
             totalFees -= department.getCourseFees() * course.getCreditHours();
+            department.totalFees -= department.getCourseFees() * course.getCreditHours();
             course.removeStudent(this);
         }
         return registeredHours;
@@ -66,7 +69,7 @@ public class Student extends Person {
     public String toString() {
         return "Student ID: " + this.getId() + ", Name: " + this.getName() + ", Department: "
                 + this.department.getDepartmentName() + ", Registered Hours: " + this.registeredHours
-                + ", Total Fees: " + this.totalFees;
+                + ", Total Fees: " + this.totalFees + ", Enrolled Courses: " + this.enrolledCourses.toString();
     }
 
 }

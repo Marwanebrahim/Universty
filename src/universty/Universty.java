@@ -3,11 +3,12 @@ package universty;
 
 import java.util.Scanner;
 
-import universty.manager.DepartmentReports;
-import universty.manager.ManageCourses;
-import universty.manager.ManageDepartments;
-import universty.manager.ManageInstructors;
-import universty.manager.ManageStudents;
+import universty.system.RigesterSystem;
+import universty.system.manager.DepartmentReports;
+import universty.system.manager.ManageCourses;
+import universty.system.manager.ManageDepartments;
+import universty.system.manager.ManageInstructors;
+import universty.system.manager.ManageStudents;
 
 public class Universty {
     static Scanner input = new Scanner(System.in);

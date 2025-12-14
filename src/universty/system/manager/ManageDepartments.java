@@ -1,9 +1,9 @@
-package universty.manager;
+package universty.system.manager;
 
 import java.util.Scanner;
 
-import universty.Department;
-import universty.RigesterSystem;
+import universty.model.Department;
+import universty.system.RigesterSystem;
 
 public class ManageDepartments {
 

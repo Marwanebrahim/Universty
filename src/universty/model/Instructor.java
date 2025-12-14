@@ -1,4 +1,4 @@
-package universty;
+package universty.model;
 
 import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
@@ -46,6 +46,6 @@ public class Instructor extends Person {
     @Override
     public String toString() {
         return "Instructor Name: " + getName() + ", ID: " + getId() + ", Department: "
-                + getDepartment().getDepartmentName() + ", Salary: " + salary;
+                + getDepartment().getDepartmentName() + ", Salary: " + salary+ ", Teaching Courses: " + this.teachingCourses.toString();
     }
 }

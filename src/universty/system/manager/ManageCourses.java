@@ -1,11 +1,11 @@
-package universty.manager;
+package universty.system.manager;
 
 import java.util.Scanner;
 
-import universty.Courses;
-import universty.Department;
-import universty.Instructor;
-import universty.RigesterSystem;
+import universty.model.Courses;
+import universty.model.Department;
+import universty.model.Instructor;
+import universty.system.RigesterSystem;
 
 public class ManageCourses {
 

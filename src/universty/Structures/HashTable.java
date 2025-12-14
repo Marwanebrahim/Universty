@@ -23,9 +23,12 @@ public class HashTable<T extends Hashable> {
     }
 
     public boolean insert(T item) {
-        String key = item.getKey();
-        int index = hashFunction(key);
-        boolean added = table[index].AddNode(item);
+        boolean added = false;
+        if (searchByKey(item.getKey()) == null) {
+            String key = item.getKey();
+            int index = hashFunction(key);
+            added = table[index].AddNode(item);
+        }
         return added;
     }
 

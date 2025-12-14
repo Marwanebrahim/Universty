@@ -1,4 +1,4 @@
-package universty;
+package universty.model;
 
 import universty.interfaces.Hashable;
 

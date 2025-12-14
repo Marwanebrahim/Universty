@@ -1,4 +1,4 @@
-package universty;
+package universty.model;
 
 import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
@@ -22,6 +22,9 @@ public class Courses implements Hashable {
     }
 
     public boolean addStudent(Student student) {
+        if (enrolledStudents.Search(student) != null) {
+            return false;
+        }
         return enrolledStudents.AddNode(student);
     }
 

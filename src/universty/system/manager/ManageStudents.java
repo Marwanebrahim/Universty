@@ -1,11 +1,11 @@
-package universty.manager;
+package universty.system.manager;
 
 import java.util.Scanner;
 
-import universty.Courses;
-import universty.Department;
-import universty.RigesterSystem;
-import universty.Student;
+import universty.model.Courses;
+import universty.model.Department;
+import universty.model.Student;
+import universty.system.RigesterSystem;
 
 public class ManageStudents {
 
@@ -99,7 +99,7 @@ public class ManageStudents {
                             System.out.println("Course not found in the department.");
                             break;
                         }
-                        if (student.getRegisteredHours() + courseToAdd.getCreditHours() >= 17) {
+                        if (student.getRegisteredHours() + courseToAdd.getCreditHours() > 17) {
                             System.out.println("Maximum registered hours reached. Cannot add more courses.");
                             break;
                         }

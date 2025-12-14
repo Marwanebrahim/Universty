@@ -102,14 +102,7 @@ public class SingleLinkedList<T> {
         return null;
     }
 
-    public void PrintList() {
-        Node<T> temp = head;
-        while (temp != null) {
-            System.out.println(temp.data);
-            temp = temp.next;
-        }
-    }
-
+  
     public boolean IsEmpty() {
         return head == null;
     }
@@ -118,4 +111,14 @@ public class SingleLinkedList<T> {
         return noOfNodes;
     }
 
+   @Override
+   public String toString() {
+    String ss= "";
+          Node<T> temp = head;
+        while (temp != null) {
+           ss += temp.data + " ";
+            temp = temp.next;
+        }
+        return ss;
+   }
 }
