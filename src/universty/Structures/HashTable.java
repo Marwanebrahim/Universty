@@ -32,13 +32,13 @@ public class HashTable<T extends Hashable> {
         return added;
     }
 
-    public Node<T> searchByKey(String key) {
+    public T searchByKey(String key) {
         int index = hashFunction(key);
         SingleLinkedList<T> bucket = table[index];
         Node<T> current = bucket.head;
         while (current != null) {
             if (current.data.getKey().equals(key)) {
-                return current;
+                return current.data;
             }
             current = current.next;
         }
@@ -64,11 +64,12 @@ public class HashTable<T extends Hashable> {
             if (bucket.head != null) {
                 Node<T> current = bucket.head;
                 while (current != null) {
-                    Node<T> temp = searchByKey(current.data.getKey());
-                    System.out.println(temp.data);
+                    T temp = searchByKey(current.data.getKey());
+                    System.out.println(temp);
                     current = current.next;
                 }
             }
         }
     }
+
 }

@@ -84,12 +84,13 @@ public class ManageInstructors {
                     }
                     System.out.println("Enter Course ID to add to Instructor: ");
                     String courseIDToAdd = input.nextLine();
-                    Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptToAddCourse.getDepartmentName(), courseIDToAdd);
+                    Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptToAddCourse, courseIDToAdd);
                     if (courseToAdd == null) {
                         System.out.println("Course not found in the department.");
                         break;
                     }
-                    boolean courseAdded = rigesterSystem.addCourseToInstructor(instructorToAddCourse.getId(), courseToAdd);
+                    boolean courseAdded = rigesterSystem.addCourseToInstructor(instructorToAddCourse.getId(),
+                            courseToAdd);
                     System.out.println(courseAdded ? "Course added to instructor successfully."
                             : "Course already assigned to instructor.");
                     break;
@@ -110,7 +111,7 @@ public class ManageInstructors {
                     System.out.println("Enter Course ID to remove from Instructor: ");
                     String courseIDToRemove = input.nextLine();
                     Courses courseToRemove = rigesterSystem
-                            .searchCourseInDepartment(deptToRemoveCourse.getDepartmentName(), courseIDToRemove);
+                            .searchCourseInDepartment(deptToRemoveCourse, courseIDToRemove);
                     if (courseToRemove == null) {
                         System.out.println("Course not found in the department.");
                         break;

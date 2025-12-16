@@ -35,17 +35,17 @@ public class Department implements Hashable {
     }
 
     public boolean removeInstructor(String key) {
-        Node<Instructor> instructor = instructors.searchByKey(key);
+        Instructor instructor = instructors.searchByKey(key);
         if (instructor != null) {
-            totalSalaries -= instructor.data.getSalary();
+            totalSalaries -= instructor.getSalary();
         }
         return instructors.deleteByKey(key);
     }
 
     public Instructor searchInstructor(String key) {
-        Node<Instructor> instructor = instructors.searchByKey(key);
+        Instructor instructor = instructors.searchByKey(key);
 
-        return instructor != null ? instructor.data : null;
+        return instructor;
     }
 
     public boolean addStudent(Student student) {
@@ -57,14 +57,14 @@ public class Department implements Hashable {
     }
 
     public boolean removeStudent(String key) {
-        Node<Student> student = students.searchByKey(key);
+        Student student = students.searchByKey(key);
         if (student != null) {
-            totalFees -= student.data.getTotalFees();
-            Node<Courses> enrolledcourses = student.data.enrolledCourses.head;
+            totalFees -= student.getTotalFees();
+            Node<Courses> enrolledcourses = student.enrolledCourses.head;
             while (enrolledcourses != null && enrolledcourses.data != null) {
-                Node<Courses> course = courses.searchByKey(enrolledcourses.data.getKey());
+                Courses course = courses.searchByKey(enrolledcourses.data.getKey());
                 if (course != null) {
-                    course.data.removeStudent(student.data);
+                    course.removeStudent(student);
                 }
                 enrolledcourses = enrolledcourses.next;
             }
@@ -73,9 +73,9 @@ public class Department implements Hashable {
     }
 
     public Student searchStudent(String key) {
-        Node<Student> student = students.searchByKey(key);
+        Student student = students.searchByKey(key);
         if (student != null) {
-            return student.data;
+            return student;
         }
         return null;
     }
@@ -89,12 +89,12 @@ public class Department implements Hashable {
     }
 
     public boolean removeCourse(String key) {
-        Node<Courses> course = courses.searchByKey(key);
+        Courses course = courses.searchByKey(key);
         if (course != null) {
-            Node<Student> enrolledStudents = course.data.enrolledStudents.head;
+            Node<Student> enrolledStudents = course.enrolledStudents.head;
             while (enrolledStudents != null) {
-                enrolledStudents.data.removeCourse(course.data);
-                course.data.removeStudent(enrolledStudents.data);
+                enrolledStudents.data.removeCourse(course);
+                course.removeStudent(enrolledStudents.data);
                 enrolledStudents = enrolledStudents.next;
             }
 
@@ -103,9 +103,9 @@ public class Department implements Hashable {
     }
 
     public Courses searchCourse(String key) {
-        Node<Courses> course = courses.searchByKey(key);
+        Courses course = courses.searchByKey(key);
         if (course != null) {
-            return course.data;
+            return course;
         }
         return null;
     }

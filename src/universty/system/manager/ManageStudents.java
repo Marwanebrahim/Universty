@@ -93,8 +93,7 @@ public class ManageStudents {
 
                         System.out.println("Enter Course ID to add: ");
                         String courseIDToAdd = input.nextLine();
-                        Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptForCourse.getDepartmentName(),
-                                courseIDToAdd);
+                        Courses courseToAdd = rigesterSystem.searchCourseInDepartment(deptForCourse, courseIDToAdd);
                         if (courseToAdd == null) {
                             System.out.println("Course not found in the department.");
                             break;
@@ -105,7 +104,7 @@ public class ManageStudents {
                         }
                         int regidteredHours = rigesterSystem.addCourseToStudent(deptForCourse, student, courseToAdd);
                         System.out.println("Course added successfully. Total registered hours: " + regidteredHours);
-                        if (regidteredHours == 100) {
+                        if (regidteredHours == -1) {
                             System.out.println("Failed to add course. try again.");
                             continue;
                         }
@@ -144,14 +143,14 @@ public class ManageStudents {
                         System.out.println("Enter Course ID to remove: ");
                         String courseIDToRemove = input.next();
                         Courses courseToRemove = rigesterSystem
-                                .searchCourseInDepartment(deptForCourse.getDepartmentName(), courseIDToRemove);
+                                .searchCourseInDepartment(deptForCourse, courseIDToRemove);
                         if (courseToRemove == null) {
                             System.out.println("Course not found in the department.");
                             break;
                         }
                         int registeredHoursAfterRemove = rigesterSystem.removeCourseFromStudent(student.getId(),
                                 courseToRemove);
-                        if (registeredHoursAfterRemove == 100) {
+                        if (registeredHoursAfterRemove == -1) {
                             System.out.println("Failed to remove course. try again.");
                             continue;
                         }

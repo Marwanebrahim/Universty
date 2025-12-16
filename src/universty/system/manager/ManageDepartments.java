@@ -42,9 +42,13 @@ public class ManageDepartments {
     }
 
     private void searchDepartment(RigesterSystem rigesterSystem, Scanner input) {
-        Department foundDept = rigesterSystem.isDepartmentFound(input);
-        if (foundDept != null) {
-            System.out.println("Department Found: " + foundDept.getDepartmentName());
+        System.out.println("Enter Department Name to search: ");
+        String deptNameToSearch = input.nextLine();
+        Department department = rigesterSystem.searchDepartment(deptNameToSearch);
+        if (department != null) {
+            System.out.println("Department is Exists.\n Name: " +
+                    department.getDepartmentName() + ", Course Fees: "
+                    + department.getCourseFees());
         } else {
             System.out.println("Department not found.");
         }

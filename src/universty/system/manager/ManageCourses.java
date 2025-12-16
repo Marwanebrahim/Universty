@@ -4,12 +4,11 @@ import java.util.Scanner;
 
 import universty.model.Courses;
 import universty.model.Department;
-import universty.model.Instructor;
 import universty.system.RigesterSystem;
 
 public class ManageCourses {
 
-    public void manageCourses(RigesterSystem rigesterSystem,Scanner input) {
+    public void manageCourses(RigesterSystem rigesterSystem, Scanner input) {
         while (true) {
             System.out.println("------ Course Menu ------");
             System.out.println("1. Add Course");
@@ -33,20 +32,11 @@ public class ManageCourses {
                     String courseID = input.nextLine();
                     System.out.println("Enter Course Credits: ");
                     int courseCredits = input.nextInt();
-                    Instructor instructor;
-                    while (true) {
-                        System.out.println("Enter Instructor Name: ");
-                        String instructorName = input.nextLine();
-                        instructor = rigesterSystem.searchInstructorInDepartment(deptToAddCourse.getDepartmentName(),
-                                instructorName);
-                        if (instructor == null) {
-                            System.out.println("Instructor not found in the department. Please try again.");
-                            continue;
-                        }
-                        break;
-                    }
-                    Courses newCourse = new Courses(courseName, courseID, deptToAddCourse, courseCredits, instructor);
-                    boolean added = rigesterSystem.addCourseToDepartment(deptToAddCourse.getDepartmentName(), newCourse);
+                    input.nextLine(); // Consume newline
+                    Courses newCourse = new Courses(courseName, courseID, deptToAddCourse, courseCredits);
+                    boolean added = rigesterSystem.addCourseToDepartment(
+                            deptToAddCourse.getDepartmentName(),
+                            newCourse);
                     System.out.println(added ? "Course added successfully." : "Course already exists.");
                     break;
                 case "2":
@@ -71,7 +61,7 @@ public class ManageCourses {
                     System.out.println("Enter Course Code to search: ");
                     String courseCodeToSearch = input.nextLine();
                     Courses foundCourse = rigesterSystem.searchCourseInDepartment(
-                            deptToSearch.getDepartmentName(),
+                            deptToSearch,
                             courseCodeToSearch);
                     if (foundCourse != null) {
                         System.out.println("Course Found: " + foundCourse.toString());
@@ -108,5 +98,4 @@ public class ManageCourses {
             }
         }
     }
-
 }

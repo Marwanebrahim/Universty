@@ -12,12 +12,12 @@ public class Courses implements Hashable {
     Instructor instructor;
     SingleLinkedList<Student> enrolledStudents;
 
-    public Courses(String courseName, String courseId, Department department, int creditHours, Instructor instructor) {
+    public Courses(String courseName, String courseId, Department department, int creditHours) {
         this.courseName = courseName;
         this.courseId = courseId;
         this.department = department;
         this.creditHours = creditHours;
-        this.instructor = instructor;
+        this.instructor = null;
         this.enrolledStudents = new SingleLinkedList<Student>();
     }
 
@@ -30,6 +30,22 @@ public class Courses implements Hashable {
 
     public boolean removeStudent(Student student) {
         return enrolledStudents.DeleteNode(student);
+    }
+
+    public boolean addInstructor(Instructor instructor) {
+        if (this.instructor == null) {
+            this.instructor = instructor;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeInstructor() {
+        if (this.instructor != null) {
+            this.instructor = null;
+            return true;
+        }
+        return false;
     }
 
     public boolean isStudentEnrolled(Student student) {
@@ -84,10 +100,6 @@ public class Courses implements Hashable {
         return instructor;
     }
 
-    public void setInstructor(Instructor instructor) {
-        this.instructor = instructor;
-    }
-
     @Override
     public String getKey() {
 
@@ -97,8 +109,8 @@ public class Courses implements Hashable {
     @Override
     public String toString() {
         return "Course Name: " + courseName + ", Course ID: " + courseId + ", Department: "
-                + department.getDepartmentName() + ", Credit Hours: " + creditHours + ", Instructor: "
-                + instructor.getName();
+                + department.getDepartmentName() + ", Credit Hours: " + creditHours +
+                ", Instructor: " + (instructor != null ? instructor.getName() : "None");
     }
 
     @Override

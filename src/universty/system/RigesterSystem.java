@@ -79,7 +79,7 @@ public class RigesterSystem {
         if (student != null) {
             return student.addCourse(course);
         }
-        return 100;
+        return -1;
     }
 
     public int removeCourseFromStudent(String studentID, Courses course) {
@@ -91,7 +91,7 @@ public class RigesterSystem {
             }
             tempDept = tempDept.next;
         }
-        return 100;
+        return -1;
     }
 
     // CRUD Instructor
@@ -124,7 +124,7 @@ public class RigesterSystem {
         while (tempDept != null) {
             Instructor instructor = tempDept.data.searchInstructor(instructorID);
             if (instructor != null) {
-                course.setInstructor(instructor);
+                course.addInstructor(instructor);
                 return instructor.addCourse(course);
             }
             tempDept = tempDept.next;
@@ -161,11 +161,11 @@ public class RigesterSystem {
         return false;
     }
 
-    public Courses searchCourseInDepartment(String departmentName, String courseID) {
-        Department dept = searchDepartment(departmentName);
-        if (dept != null) {
-            return dept.searchCourse(courseID);
+    public Courses searchCourseInDepartment(Department department, String courseID) {
+        if (department != null) {
+            return department.searchCourse(courseID);
         }
+
         return null;
     }
 
@@ -204,6 +204,14 @@ public class RigesterSystem {
 
     public double getBalance(Department department) {
         return department.getBalance();
+    }
+
+    public double getTotalFeesInDepartment(Department department) {
+        return department.getTotalFees();
+    }
+
+    public double getTotalSalariesInDepartment(Department department) {
+        return department.getTotalSalaries();
     }
 
     public double getTotalBalance() {
@@ -251,39 +259,118 @@ public class RigesterSystem {
     }
 
     public void DumbyData() {
-        Department csDept = new Department("cs", 5000);
-        Department mathDept = new Department("math", 4000);
+        Department csDept = new Department("Computer Science", 5000.0);
+        Department mathDept = new Department("Mathematics", 4000.0);
+        Department physicsDept = new Department("Physics", 4500.0);
+        Department chemistryDept = new Department("Chemistry", 4200.0);
+        Department biologyDept = new Department("Biology", 3800.0);
         addDepartment(csDept);
         addDepartment(mathDept);
-        Instructor alice = new Instructor("Alice", "I001", csDept, 600.0);
-        Instructor bob = new Instructor("Bob", "I002", mathDept, 550.0);
-        Instructor ma = new Instructor("ma", "12", mathDept, 550.0);
-        addInstructorToDepartment("cs", alice);
-        addInstructorToDepartment("math", bob);
-        addInstructorToDepartment("math", ma);
+        addDepartment(physicsDept);
+        addDepartment(chemistryDept);
+        addDepartment(biologyDept);
 
-        Student marwan = new Student("marwan", "m100", mathDept);
-        Student john = new Student("john", "s200", csDept);
-        Student doe = new Student("doe", "s300", csDept);
-        addStudentToDepartment("math", marwan);
-        addStudentToDepartment("cs", john);
-        addStudentToDepartment("cs", doe);
+        // Create 4 Instructors (distributed across departments)
+        Instructor alice = new Instructor("Alice Johnson", "I001", csDept, 60000.0);
+        Instructor bob = new Instructor("Bob Smith", "I002", mathDept, 55000.0);
+        Instructor charlie = new Instructor("Charlie Brown", "I003", physicsDept, 58000.0);
+        Instructor diana = new Instructor("Diana Prince", "I004", chemistryDept, 57000.0);
+        addInstructorToDepartment("Computer Science", alice);
+        addInstructorToDepartment("Mathematics", bob);
+        addInstructorToDepartment("Physics", charlie);
+        addInstructorToDepartment("Chemistry", diana);
+        // Biology has no instructor for variety
 
-        Courses ds = new Courses("Data Structures", "C101", csDept, 3, alice);
-        Courses calc = new Courses("Calculus", "M101", mathDept, 4, bob);
-        Courses la = new Courses("Linear Algebra", "M102", csDept, 3, ma);
+        // Create 20 Students (4 per department)
+        // CS Students
+        Student john = new Student("John Doe", "S001", csDept);
+        Student jane = new Student("Jane Smith", "S002", csDept);
+        Student mike = new Student("Mike Johnson", "S003", csDept);
+        Student lisa = new Student("Lisa Brown", "S004", csDept);
+        // Math Students
+        Student paul = new Student("Paul Wilson", "S005", mathDept);
+        Student emma = new Student("Emma Davis", "S006", mathDept);
+        Student david = new Student("David Miller", "S007", mathDept);
+        Student sophia = new Student("Sophia Garcia", "S008", mathDept);
+        // Physics Students
+        Student oliver = new Student("Oliver Martinez", "S009", physicsDept);
+        Student ava = new Student("Ava Rodriguez", "S010", physicsDept);
+        Student william = new Student("William Lopez", "S011", physicsDept);
+        Student isabella = new Student("Isabella Gonzalez", "S012", physicsDept);
+        // Chemistry Students
+        Student james = new Student("James Perez", "S013", chemistryDept);
+        Student mia = new Student("Mia Taylor", "S014", chemistryDept);
+        Student benjamin = new Student("Benjamin Anderson", "S015", chemistryDept);
+        Student charlotte = new Student("Charlotte Thomas", "S016", chemistryDept);
 
-        addCourseToDepartment("cs", ds);
-        addCourseToDepartment("math", calc);
-        addCourseToDepartment("math", la);
+        // Biology Students
+        Student henry = new Student("Henry Jackson", "S017", biologyDept);
+        Student amelia = new Student("Amelia White", "S018", biologyDept);
+        Student lucas = new Student("Lucas Harris", "S019", biologyDept);
+        Student harper = new Student("Harper Clark", "S020", biologyDept);
+        addStudentToDepartment("Computer Science", john);
+        addStudentToDepartment("Computer Science", jane);
+        addStudentToDepartment("Computer Science", mike);
+        addStudentToDepartment("Computer Science", lisa);
+        addStudentToDepartment("Mathematics", paul);
+        addStudentToDepartment("Mathematics", emma);
+        addStudentToDepartment("Mathematics", david);
+        addStudentToDepartment("Mathematics", sophia);
+        addStudentToDepartment("Physics", oliver);
+        addStudentToDepartment("Physics", ava);
+        addStudentToDepartment("Physics", william);
+        addStudentToDepartment("Physics", isabella);
+        addStudentToDepartment("Chemistry", james);
+        addStudentToDepartment("Chemistry", mia);
+        addStudentToDepartment("Chemistry", benjamin);
+        addStudentToDepartment("Chemistry", charlotte);
+        addStudentToDepartment("Biology", henry);
+        addStudentToDepartment("Biology", amelia);
+        addStudentToDepartment("Biology", lucas);
+        addStudentToDepartment("Biology", harper);
 
+        // Create 6 Courses (distributed across departments)
+        Courses ds = new Courses("Data Structures", "C101", csDept, 3);
+        Courses algo = new Courses("Algorithms", "C102", csDept, 4);
+        Courses calc = new Courses("Calculus", "M101", mathDept, 4);
+        Courses stats = new Courses("Statistics", "M102", mathDept, 3);
+        Courses mechanics = new Courses("Mechanics", "P101", physicsDept, 4);
+        Courses organicChem = new Courses("Organic Chemistry", "CH101", chemistryDept, 3);
+        addCourseToDepartment("Computer Science", ds);
+        addCourseToDepartment("Computer Science", algo);
+        addCourseToDepartment("Mathematics", calc);
+        addCourseToDepartment("Mathematics", stats);
+        addCourseToDepartment("Physics", mechanics);
+        addCourseToDepartment("Chemistry", organicChem);
+        // Assign courses to instructors
         addCourseToInstructor("I001", ds);
+        addCourseToInstructor("I001", algo);
         addCourseToInstructor("I002", calc);
-        addCourseToInstructor("12", la);
-
+        addCourseToInstructor("I002", stats);
+        addCourseToInstructor("I003", mechanics);
+        addCourseToInstructor("I004", organicChem);
+        // Enroll students in courses (simulate some enrollments, respecting credit
+        // limits)
+        // CS Students
         addCourseToStudent(csDept, john, ds);
-        addCourseToStudent(mathDept, marwan, calc);
-        addCourseToStudent(mathDept, marwan, la);
+        addCourseToStudent(csDept, jane, algo);
+        addCourseToStudent(csDept, mike, ds);
+        addCourseToStudent(csDept, lisa, algo);
+        // Math Students
+        addCourseToStudent(mathDept, paul, calc);
+        addCourseToStudent(mathDept, emma, stats);
+        addCourseToStudent(mathDept, david, calc);
+        addCourseToStudent(mathDept, sophia, stats);
+        // Physics Students
+        addCourseToStudent(physicsDept, oliver, mechanics);
+        addCourseToStudent(physicsDept, ava, mechanics);
+        // Chemistry Students
+        addCourseToStudent(chemistryDept, james, organicChem);
+        addCourseToStudent(chemistryDept, mia, organicChem);
+        // Biology Students (no courses, as expected)
+        // No enrollments for biology since there are no courses
+        System.out.println(
+                "Dummy data added successfully: 5 departments, 4 instructors, 20 students, 6 courses, and sample enrollments.");
     }
 
 }

@@ -1,5 +1,6 @@
 package universty.model;
 
+import universty.Structures.Node;
 import universty.Structures.SingleLinkedList;
 
 public class Student extends Person {
@@ -15,7 +16,7 @@ public class Student extends Person {
     }
 
     public int addCourse(Courses course) {
-        if (enrolledCourses.Search(course) != null) {
+        if (enrolledCourses.Search(course) == null) {
             if (registeredHours + course.getCreditHours() <= 17) {
                 if (enrolledCourses.AddNode(course)) {
                     registeredHours += course.getCreditHours();
@@ -51,6 +52,20 @@ public class Student extends Person {
         return totalFees;
     }
 
+    public String printCoursesNames() {
+        if (enrolledCourses.IsEmpty()) {
+            System.out.println("No courses assigned.");
+            return "No courses assigned.";
+        }
+        String coursesNames = "";
+        Node<Courses> current = enrolledCourses.head;
+        while (current != null) {
+            coursesNames += current.data.getCourseName() + ", ";
+            current = current.next;
+        }
+        return coursesNames;
+    }
+
     public String getStudentId() {
         return this.getId();
     }
@@ -69,7 +84,8 @@ public class Student extends Person {
     public String toString() {
         return "Student ID: " + this.getId() + ", Name: " + this.getName() + ", Department: "
                 + this.department.getDepartmentName() + ", Registered Hours: " + this.registeredHours
-                + ", Total Fees: " + this.totalFees + ", Enrolled Courses: " + this.enrolledCourses.toString();
+                + ", Total Fees: " + this.totalFees +
+                ", Enrolled Courses: " + (enrolledCourses.IsEmpty() ? "none" : printCoursesNames());
     }
 
 }

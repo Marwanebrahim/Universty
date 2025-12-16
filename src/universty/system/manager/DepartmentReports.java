@@ -29,7 +29,7 @@ public class DepartmentReports {
                 case "2":
                     Department deptFees = rigesterSystem.isDepartmentFound(input);
                     if (deptFees != null) {
-                        double totalFees = rigesterSystem.getTotalFees();
+                        double totalFees = rigesterSystem.getTotalFeesInDepartment(deptFees);
                         System.out
                                 .println("Total Fees Collected for " + deptFees.getDepartmentName() + ": " + totalFees);
                     }
@@ -37,7 +37,7 @@ public class DepartmentReports {
                 case "3":
                     Department deptSalaries = rigesterSystem.isDepartmentFound(input);
                     if (deptSalaries != null) {
-                        double totalSalaries = rigesterSystem.getTotalSalaries();
+                        double totalSalaries = deptSalaries.getTotalSalaries();
                         System.out.println(
                                 "Total Salaries Paid for " + deptSalaries.getDepartmentName() + ": " + totalSalaries);
                     }

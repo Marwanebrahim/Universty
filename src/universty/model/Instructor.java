@@ -33,6 +33,20 @@ public class Instructor extends Person {
         this.salary = salary;
     }
 
+    public String printCoursesNames() {
+        if (teachingCourses.IsEmpty()) {
+            System.out.println("No courses assigned.");
+            return "No courses assigned.";
+        }
+        String coursesNames = "";
+        Node<Courses> current = teachingCourses.head;
+        while (current != null) {
+            coursesNames += current.data.getCourseName() + ", ";
+            current = current.next;
+        }
+        return coursesNames;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -46,6 +60,7 @@ public class Instructor extends Person {
     @Override
     public String toString() {
         return "Instructor Name: " + getName() + ", ID: " + getId() + ", Department: "
-                + getDepartment().getDepartmentName() + ", Salary: " + salary+ ", Teaching Courses: " + this.teachingCourses.toString();
+                + getDepartment().getDepartmentName() + ", Salary: " + salary +
+                ", Teaching Courses: " + (teachingCourses.IsEmpty() ? "none" : printCoursesNames());
     }
 }
