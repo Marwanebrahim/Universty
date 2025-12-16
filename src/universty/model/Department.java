@@ -151,6 +151,18 @@ public class Department implements Hashable {
         return totalFees;
     }
 
+    public HashTable<Instructor> getInstructors() {
+        return instructors;
+    }
+
+    public HashTable<Student> getStudents() {
+        return students;
+    }
+
+    public HashTable<Courses> getCourses() {
+        return courses;
+    }
+
     @Override
     public String getKey() {
         return departmentName;

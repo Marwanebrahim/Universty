@@ -100,6 +100,10 @@ public class Courses implements Hashable {
         return instructor;
     }
 
+    public SingleLinkedList<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
     @Override
     public String getKey() {
 

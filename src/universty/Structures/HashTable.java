@@ -72,4 +72,7 @@ public class HashTable<T extends Hashable> {
         }
     }
 
+     public SingleLinkedList<T>[] getTable() {
+        return table;
+    }
 }
